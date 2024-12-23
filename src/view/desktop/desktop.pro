@@ -21,10 +21,14 @@ INCLUDEPATH += $$INCLUDE_DIR
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    $$SRC_DIR/model/model.cpp \
+    $$SRC_DIR/controller/controller.cpp
 
 HEADERS += \
-    $$INCLUDE_DIR/view/desktop/mainwindow.h
+    $$INCLUDE_DIR/view/desktop/mainwindow.h \
+    $$INCLUDE_DIR/model/model.h \
+    $$INCLUDE_DIR/controller/controller.h
 
 FORMS += \
     $$UI_DIR/mainwindow.ui

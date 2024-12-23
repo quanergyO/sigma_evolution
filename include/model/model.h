@@ -1,4 +1,4 @@
-#ifndef MODEL_MODEl_H
+#ifndef MODEL_MODEL_H
 #define MODEL_MODEL_H
 
 namespace model

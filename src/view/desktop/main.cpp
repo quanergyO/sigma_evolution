@@ -4,8 +4,11 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    model::Model model;
+    controller::Controller controller(model);
+
+    QApplication application(argc, argv);
+    MainWindow window(controller);
+    window.show();
+    return application.exec();
 }

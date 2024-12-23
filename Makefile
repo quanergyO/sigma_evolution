@@ -1,9 +1,9 @@
 run:
-	go run cmd/main.go
+	go run src/cmd/main.go
 
 build:
 	mkdir build
-	go build cmd/main.go -o build/sigmaEvolution.out
+	go build src/cmd/main.go -o build/sigmaEvolution.out
 
 clean:
 	rm -rf build

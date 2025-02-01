@@ -8,7 +8,10 @@ import (
 	"syscall"
 
 	"github.com/joho/godotenv"
+	"github.com/quanergyO/sigma_evolution/internal/handler"
+	"github.com/quanergyO/sigma_evolution/internal/repository"
 	"github.com/quanergyO/sigma_evolution/internal/repository/postgres"
+	"github.com/quanergyO/sigma_evolution/internal/service"
 	"github.com/quanergyO/sigma_evolution/server"
 	"github.com/spf13/viper"
 
@@ -26,22 +29,26 @@ func main() {
 		os.Exit(1)
 	}
 
-	_, err := postgres.NewDB(postgres.Config{
+	db, err := postgres.NewDB(postgres.Config{
 		Host:     viper.GetString("db.host"),
 		Port:     viper.GetString("db.port"),
 		Username: viper.GetString("db.username"),
+		Password: viper.GetString("db.password"),
 		DBName:   viper.GetString("db.dbname"),
 		SSLMode:  viper.GetString("db.sslmode"),
-		Password: os.Getenv("DB_PASSWORD"),
 	})
 	if err != nil {
 		slog.Error("Error: failed to init db connection", err)
 		os.Exit(1)
 	}
 
+	repo := repository.NewRepository(db)
+	service := service.NewService(repo)
+	handler := handler.NewHandler(service)
+
 	serv := new(server.Server)
 	go func() {
-		if err := serv.Run(viper.GetString("db.port")); err != nil {
+		if err := serv.Run(viper.GetString("db.port"), handler.InitRoutes()); err != nil {
 			slog.Error("Error: failed to start server on port:", viper.GetString("db.host"), err.Error())
 			os.Exit(1)
 		}

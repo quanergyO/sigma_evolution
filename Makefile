@@ -1,10 +1,12 @@
-rebuild: clean build
-
+run:
+	go run cmd/main.go
 
 build:
-	mkdir build
-	cd build && cmake ../view/CMakeLists.txt && make
-	cd ./build && make
+	mkdir build || true
+	go build -o ./build/server.out
 
-clean:
-	rm -rf build
+compose-run:
+	docker-compose up
+
+dbrun:
+	docker run --name=postgres -e POSTGRES_PASSWORD='qwerty' -p 5432:5436 -d --rm postgres

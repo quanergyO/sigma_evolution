@@ -48,7 +48,7 @@ func main() {
 
 	serv := new(server.Server)
 	go func() {
-		if err := serv.Run(viper.GetString("db.port"), handler.InitRoutes()); err != nil {
+		if err := serv.Run(viper.GetString("port"), handler.InitRoutes()); err != nil {
 			slog.Error("Error: failed to start server on port:", viper.GetString("db.host"), err.Error())
 			os.Exit(1)
 		}

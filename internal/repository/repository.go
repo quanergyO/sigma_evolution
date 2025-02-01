@@ -1,6 +1,11 @@
 package repository
 
-import "database/sql"
+import (
+	"database/sql"
+
+	"github.com/quanergyO/sigma_evolution/internal/repository/postgres"
+	"github.com/quanergyO/sigma_evolution/types"
+)
 
 type IBooks interface {
 }
@@ -15,6 +20,11 @@ type ISchool21Project interface {
 }
 
 type ISkils interface {
+	GetAll() ([]types.Skill, error)
+	GetById(id int) (types.Skill, error)
+	Update(id int) error
+	Create(skill types.Skill) (int, error)
+	Delete(id int) error
 }
 
 type Repository struct {
@@ -26,5 +36,7 @@ type Repository struct {
 }
 
 func NewRepository(db *sql.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		ISkils: postgres.NewSkill(db),
+	}
 }

@@ -4,8 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 	"log/slog"
+	"os"
+	"path/filepath"
 
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
+
+	"github.com/golang-migrate/migrate/v4"
 )
 
 type Config struct {
@@ -16,6 +22,14 @@ type Config struct {
 	DBName   string
 	SSLMode  string
 }
+
+const (
+	skillTable     = "Skill"
+	progressTable  = "Progress"
+	booksTable     = "Books"
+	playlistsTable = "Playlists"
+	coursesTable   = "Courses"
+)
 
 func NewDB(cfg Config) (*sql.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
@@ -33,5 +47,32 @@ func NewDB(cfg Config) (*sql.DB, error) {
 		return nil, err
 	}
 
+	err = makeMigrations(cfg)
+	if err != nil {
+		return nil, err
+	}
+
 	return db, nil
+}
+
+func makeMigrations(cfg Config) error {
+	wd, err := os.Getwd()
+	if err != nil {
+		slog.Error("Can't get current working directory")
+		return err
+	}
+	migrationPath := filepath.Join(wd, "schema")
+	databaseURL := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s", cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.DBName, cfg.SSLMode)
+
+	m, err := migrate.New(
+		"file://"+migrationPath,
+		databaseURL,
+	)
+	if err != nil {
+		slog.Error("failed to connect db", err)
+		return err
+	}
+
+	m.Up()
+	return nil
 }

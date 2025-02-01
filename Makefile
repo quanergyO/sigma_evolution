@@ -12,4 +12,4 @@ compose-rebuild:
 	docker-compose up --build
 
 dbrun:
-	docker run --name=postgres -e POSTGRES_PASSWORD='qwerty' -p 5432:5436 -d --rm postgres
+	docker run --name=postgres -e POSTGRES_PASSWORD='qwerty' -p 5432:5432 -d --rm postgres

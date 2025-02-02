@@ -37,13 +37,13 @@ func NewDB(cfg Config) (*sql.DB, error) {
 	slog.Info(psqlInfo)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-		slog.Error("error open connection with db", err)
+		slog.Error("error open connection with db", slog.Any("error", err))
 		return nil, err
 	}
 
 	err = db.Ping()
 	if err != nil {
-		slog.Error("error ping to db", err)
+		slog.Error("error ping to db", slog.Any("error", err))
 		return nil, err
 	}
 
@@ -58,7 +58,7 @@ func NewDB(cfg Config) (*sql.DB, error) {
 func makeMigrations(cfg Config) error {
 	wd, err := os.Getwd()
 	if err != nil {
-		slog.Error("Can't get current working directory")
+		slog.Error("Can't get current working directory", slog.Any("error", err))
 		return err
 	}
 	migrationPath := filepath.Join(wd, "schema")
@@ -69,7 +69,7 @@ func makeMigrations(cfg Config) error {
 		databaseURL,
 	)
 	if err != nil {
-		slog.Error("failed to connect db", err)
+		slog.Error("failed to connect db", slog.Any("error", err))
 		return err
 	}
 

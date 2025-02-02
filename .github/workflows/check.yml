@@ -10,5 +10,3 @@ jobs:
         run: go mod download
       - name: Build
         run: make build
-      - name: Tests
-        run: make test

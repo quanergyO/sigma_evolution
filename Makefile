@@ -5,7 +5,7 @@ run:
 
 build:
 	mkdir build || true
-	go build -o ./build/server.out
+	go build -o ./build/server.out cmd/main.go
 
 compose-run:
 	docker-compose up

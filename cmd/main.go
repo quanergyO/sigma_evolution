@@ -20,12 +20,12 @@ import (
 
 func main() {
 	if err := initConfig(); err != nil {
-		slog.Error("Error: init configs", err)
+		slog.Error("Error: init configs", slog.Any("error", err))
 		os.Exit(1)
 	}
 
 	if err := godotenv.Load(); err != nil {
-		slog.Error("Error: loading env variables", err)
+		slog.Error("Error: loading env variables", slog.Any("error", err))
 		os.Exit(1)
 	}
 
@@ -38,7 +38,7 @@ func main() {
 		SSLMode:  viper.GetString("db.sslmode"),
 	})
 	if err != nil {
-		slog.Error("Error: failed to init db connection", err)
+		slog.Error("Error: failed to init db connection", slog.Any("error", err))
 		os.Exit(1)
 	}
 
@@ -60,7 +60,7 @@ func main() {
 	<-quit
 
 	if err := serv.ShutDown(context.Background()); err != nil {
-		slog.Error("Error occured on server shutting down", err)
+		slog.Error("Error occured on server shutting down", slog.Any("error", err))
 		os.Exit(1)
 	}
 	slog.Info("Server shutting down")

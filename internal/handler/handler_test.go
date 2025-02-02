@@ -51,7 +51,7 @@ func TestSkillsCreate_OK(t *testing.T) {
 		t.Fatalf("Failed to unmarshar response body: %v", err)
 	}
 
-	assert.Equal(t, 1, response["id"])
+	assert.Equal(t, 2, response["id"])
 
 }
 

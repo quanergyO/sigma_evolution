@@ -5,6 +5,8 @@ import (
 	"github.com/quanergyO/sigma_evolution/types"
 )
 
+//go:generate mockgen -source=service.go -destination=../mocks/mock_services.go -package=mocks
+
 type IBooks interface {
 }
 

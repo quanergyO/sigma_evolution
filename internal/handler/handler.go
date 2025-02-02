@@ -22,11 +22,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		skills := api.Group("/skills")
 		{
-			skills.GET("/", h.skillsGetAll)
-			skills.GET("/:id", h.skillsGetById)
-			skills.PATCH("/:id", h.skillsUpdate)
-			skills.POST("/", h.skillsCreate)
-			skills.DELETE("/:id", h.skillsDelete)
+			skills.GET("/", h.SkillsGetAll)
+			skills.GET("/:id", h.SkillsGetById)
+			skills.PATCH("/:id", h.SkillsUpdate)
+			skills.POST("/", h.SkillsCreate)
+			skills.DELETE("/:id", h.SkillsDelete)
 		}
 	}
 

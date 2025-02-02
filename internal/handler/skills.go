@@ -9,7 +9,7 @@ import (
 	"github.com/quanergyO/sigma_evolution/types"
 )
 
-func (h *Handler) skillsGetAll(c *gin.Context) {
+func (h *Handler) SkillsGetAll(c *gin.Context) {
 
 	skills, err := h.service.ISkils.GetAll()
 	if err != nil {
@@ -22,7 +22,7 @@ func (h *Handler) skillsGetAll(c *gin.Context) {
 	})
 }
 
-func (h *Handler) skillsGetById(c *gin.Context) {
+func (h *Handler) SkillsGetById(c *gin.Context) {
 	slog.Info("Not implemented")
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":     "Not implemented",
@@ -30,7 +30,7 @@ func (h *Handler) skillsGetById(c *gin.Context) {
 	})
 }
 
-func (h *Handler) skillsCreate(c *gin.Context) {
+func (h *Handler) SkillsCreate(c *gin.Context) {
 	slog.Info("Not implemented")
 
 	var input types.Skill
@@ -50,7 +50,7 @@ func (h *Handler) skillsCreate(c *gin.Context) {
 	})
 }
 
-func (h *Handler) skillsUpdate(c *gin.Context) {
+func (h *Handler) SkillsUpdate(c *gin.Context) {
 	slog.Info("Not implemented")
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":     "Not implemented",
@@ -58,7 +58,7 @@ func (h *Handler) skillsUpdate(c *gin.Context) {
 	})
 }
 
-func (h *Handler) skillsDelete(c *gin.Context) {
+func (h *Handler) SkillsDelete(c *gin.Context) {
 	slog.Info("Not implemented")
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":     "Not implemented",

@@ -31,11 +31,9 @@ func (h *Handler) SkillsGetById(c *gin.Context) {
 }
 
 func (h *Handler) SkillsCreate(c *gin.Context) {
-	slog.Info("Not implemented")
-
 	var input types.Skill
 	if err := c.BindJSON(&input); err != nil {
-		response.NewErrorResponse(c, http.StatusBadRequest, err.Error())
+		response.NewErrorResponse(c, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 
